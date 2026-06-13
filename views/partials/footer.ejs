@@ -1,0 +1,54 @@
+</main>
+
+<% if (!currentPath.startsWith('/admin')) { %>
+  <footer class="footer" id="contacts">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo-text">PRIMECAR</div>
+          <p class="footer-text">Премиальная площадка продажи, сопровождения и подбора автомобилей бизнес- и luxury-сегмента.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Навигация</h4>
+          <ul class="footer-links">
+            <li><a href="/">Главная</a></li>
+            <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/services">Услуги</a></li>
+            <li><a href="/account">Личный кабинет</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Контакты</h4>
+          <ul class="footer-links">
+            <li>+7 (495) 900-77-77</li>
+            <li>hello@primecar.ru</li>
+            <li>Москва, Ленинградский проспект, 37</li>
+            <li>Ежедневно с 09:00 до 21:00</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Обратная связь</h4>
+          <form action="/feedback" method="post" class="stack-form">
+            <input type="hidden" name="redirectTo" value="<%= currentPath %>">
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="topic" placeholder="Тема" required>
+            <textarea name="message" rows="3" placeholder="Сообщение" required></textarea>
+            <button class="btn btn-primary" type="submit">Отправить</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 PRIMECAR. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+<% } %>
+
+<script type="module" src="/static/js/main.js"></script>
+</body>
+</html>

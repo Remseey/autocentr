@@ -1,0 +1,86 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<section class="hero">
+  <div class="hero-slider" id="heroSlider">
+    <% featuredCars.forEach((car, index) => { %>
+      <article class="hero-slide <%= index === 0 ? 'active' : '' %>">
+        <img src="<%= car.image_url %>" alt="<%= car.brand %> <%= car.model %>">
+        <div class="hero-content">
+          <div class="container">
+            <p class="eyebrow"><%= car.eyebrow %></p>
+            <h1 class="hero-title"><%= car.headline %></h1>
+            <p class="hero-text"><%= car.text %></p>
+            <div class="hero-actions">
+              <a href="<%= car.primaryHref %>" class="btn btn-primary"><%= car.primaryLabel %></a>
+              <a href="/catalog" class="btn btn-secondary">Весь каталог</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+  <button class="slider-btn slider-btn-prev" id="heroPrev" type="button">‹</button>
+  <button class="slider-btn slider-btn-next" id="heroNext" type="button">›</button>
+  <div class="slider-dots" id="heroDots"></div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Каталог</p>
+        <h2 class="section-title">Спецпредложения сезона</h2>
+      </div>
+      <a href="/catalog" class="link-more">Перейти в каталог</a>
+    </div>
+
+    <div class="cards-grid">
+      <% featuredCars.forEach((car) => { %>
+        <article class="car-card reveal">
+          <div class="car-image">
+            <img src="<%= car.image_url %>" alt="<%= car.brand %> <%= car.model %>">
+            <span class="car-badge"><%= car.featured ? 'Выбор PRIMECAR' : car.status %></span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-title"><%= car.brand %> <%= car.model %></h3>
+            <div class="car-specs">
+              <span><%= car.year %> год</span>
+              <span><%= helpers.formatNumber(car.mileage) %> км</span>
+              <span><%= car.engine %></span>
+            </div>
+            <p class="car-description"><%= car.description %></p>
+            <div class="meta-row">
+              <div class="rating-chip">★ <%= Number(car.avg_rating).toFixed(1) %> · <%= car.review_count %> отзывов</div>
+              <div class="price-block"><%= helpers.formatCurrency(car.price) %></div>
+            </div>
+            <a href="/catalog/<%= car.slug %>" class="btn btn-primary">Подробнее</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Сервис</p>
+        <h2 class="section-title">Основные направления работы</h2>
+      </div>
+    </div>
+
+    <div class="advantages-grid">
+      <% services.forEach((service, index) => { %>
+        <article class="advantage-card reveal">
+          <div class="advantage-number"><%= String(index + 1).padStart(2, '0') %></div>
+          <h3 class="advantage-title"><%= service.title %></h3>
+          <p class="advantage-text"><%= service.short_description %></p>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

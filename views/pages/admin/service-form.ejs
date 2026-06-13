@@ -1,0 +1,27 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: service ? "Редактирование услуги" : "Добавление услуги",
+  adminDescription: "Форма управления контентом услуг в стандартной светлой панели."
+}) %>
+
+<section class="admin-section">
+  <div class="container narrow">
+    <div class="admin-panel">
+      <form method="post" class="stack-form admin-form-grid" action="<%= service ? `/admin/services/${service.id}/edit` : '/admin/services/new' %>">
+        <div class="field"><label>Название</label><input name="title" value="<%= service?.title || '' %>" required></div>
+        <div class="field"><label>Базовая цена</label><input name="base_price" type="number" value="<%= service?.base_price || '' %>" required></div>
+        <div class="field"><label>Бейдж</label><input name="badge" value="<%= service?.badge || '01' %>" required></div>
+        <div class="field"><label>Порядок сортировки</label><input name="sort_order" type="number" value="<%= service?.sort_order || 1 %>" required></div>
+        <div class="field field-full"><label>Короткое описание</label><textarea name="short_description" rows="4" required><%= service?.short_description || '' %></textarea></div>
+        <div class="field field-full"><label>Список преимуществ</label><textarea name="feature_list" rows="8" required><%= service?.feature_list || '' %></textarea></div>
+        <div class="field field-full admin-form-actions">
+          <button type="submit" class="btn btn-primary">Сохранить</button>
+          <a href="/admin/services" class="btn btn-secondary">Назад к списку</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

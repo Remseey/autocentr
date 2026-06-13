@@ -1,0 +1,62 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Личный кабинет</p>
+    <h1 class="page-title">Ваш профиль и заявки</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="account-layout">
+      <div class="account-card panel reveal">
+        <div class="account-avatar"><%= currentUser.name.charAt(0).toUpperCase() %></div>
+        <div class="account-meta">
+          <p class="eyebrow">Профиль</p>
+          <h2 class="account-name"><%= currentUser.name %></h2>
+          <div class="account-line">
+            <span>Почта</span>
+            <strong><%= currentUser.email %></strong>
+          </div>
+          <div class="account-line">
+            <span>Роль</span>
+            <strong><%= currentUser.role %></strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="orders-card panel reveal">
+        <div class="section-header compact">
+          <div>
+            <p class="eyebrow">Заявки</p>
+            <h2 class="section-title">Ваши обращения</h2>
+          </div>
+        </div>
+
+        <div class="orders-list">
+          <% orders.forEach((order) => { %>
+            <article class="order-item">
+              <div class="order-item__top">
+                <div>
+                  <h3 class="order-title"><a href="/catalog/<%= order.slug %>"><%= order.brand %> <%= order.model %></a></h3>
+                  <p class="order-subtitle"><%= order.service_package %></p>
+                </div>
+                <span class="status-pill status-<%= order.status %>"><%= order.status %></span>
+              </div>
+              <div class="order-item__bottom">
+                <strong><%= helpers.formatCurrency(order.total_amount) %></strong>
+              </div>
+            </article>
+          <% }) %>
+          <% if (!orders.length) { %>
+            <div class="empty-state">У вас пока нет заявок.</div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

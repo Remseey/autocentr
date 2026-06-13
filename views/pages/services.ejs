@@ -1,0 +1,60 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Услуги</p>
+    <h1 class="page-title">PRIMECAR сопровождает сделку от первого запроса до передачи ключей</h1>
+    <p class="page-subtitle">Мы берём на себя подбор, сопровождение, продажу и организационные вопросы, чтобы клиенту было удобно на каждом этапе.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="services-grid">
+      <% services.forEach((service) => { %>
+        <article class="service-card reveal">
+          <div class="service-icon"><%= service.badge %></div>
+          <h3 class="service-title"><%= service.title %></h3>
+          <p class="service-text"><%= service.short_description %></p>
+          <ul class="service-features">
+            <% service.feature_list.split('\n').filter(Boolean).forEach((item) => { %>
+              <li><%= item %></li>
+            <% }) %>
+          </ul>
+          <p class="service-price">от <%= helpers.formatCurrency(service.base_price) %></p>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Отзывы</p>
+        <h2 class="section-title">Клиенты оценивают реальный результат</h2>
+      </div>
+    </div>
+    <div class="testimonials-slider" id="testimonialsSlider">
+      <% testimonials.forEach((review, index) => { %>
+        <article class="testimonial-slide <%= index === 0 ? 'active' : '' %>">
+          <div class="testimonial-content">
+            <div class="rating-chip">★ <%= review.rating %>/5</div>
+            <p class="testimonial-text">"<%= review.comment %>"</p>
+            <div class="testimonial-author">
+              <strong><%= review.name %></strong>
+              <span><%= review.brand %> <%= review.model %></span>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+    <button class="slider-btn slider-btn-prev" id="testimonialsPrev" type="button">‹</button>
+    <button class="slider-btn slider-btn-next" id="testimonialsNext" type="button">›</button>
+    <div class="slider-dots" id="testimonialsDots"></div>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

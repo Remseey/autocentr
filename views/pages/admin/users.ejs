@@ -1,0 +1,67 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Пользователи",
+  adminDescription: "Список аккаунтов."
+}) %>
+
+<section class="admin-section">
+  <div class="container">
+    <div class="table-toolbar admin-panel">
+      <form method="get" class="toolbar-form">
+        <input type="search" name="search" value="<%= query.search || '' %>" placeholder="Поиск пользователей">
+        <select name="sort">
+          <option value="newest">Сначала новые</option>
+          <option value="name" <%= query.sort === 'name' ? 'selected' : '' %>>Имя</option>
+          <option value="email" <%= query.sort === 'email' ? 'selected' : '' %>>Email</option>
+          <option value="role" <%= query.sort === 'role' ? 'selected' : '' %>>Роль</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Найти</button>
+      </form>
+      <a href="/admin/export/users.json" class="btn btn-secondary">Экспорт</a>
+    </div>
+    <div class="admin-panel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Email</th>
+              <th>Заявки</th>
+              <th>Роль</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach((user) => { %>
+              <tr>
+                <td><%= user.id %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.orders_count %></td>
+                <td>
+                  <form method="post" action="/admin/users/<%= user.id %>/role" class="inline-form">
+                    <select name="role">
+                      <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>user</option>
+                      <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>admin</option>
+                    </select>
+                    <button class="btn btn-secondary btn-compact" type="submit">Сменить</button>
+                  </form>
+                </td>
+                <td class="table-actions">
+                  <form method="post" action="/admin/users/<%= user.id %>/delete">
+                    <button class="btn btn-danger btn-compact" type="submit">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <%- include("../../partials/pagination", { pagination }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

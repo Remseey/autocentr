@@ -1,0 +1,12 @@
+<% if (pagination.totalPages > 1) { %>
+  <div class="pagination">
+    <% for (let page = 1; page <= pagination.totalPages; page += 1) { %>
+      <a
+        class="pagination-link <%= page === pagination.currentPage ? 'active' : '' %>"
+        href="?<%= helpers.buildQuery(query, { page }) %>"
+      >
+        <%= page %>
+      </a>
+    <% } %>
+  </div>
+<% } %>

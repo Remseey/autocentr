@@ -1,0 +1,67 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Сообщения",
+  adminDescription: "Входящие сообщения."
+}) %>
+
+<section class="admin-section">
+  <div class="container">
+    <div class="table-toolbar admin-panel">
+      <form method="get" class="toolbar-form">
+        <input type="search" name="search" value="<%= query.search || '' %>" placeholder="Поиск сообщений">
+        <select name="sort">
+          <option value="newest">Сначала новые</option>
+          <option value="status" <%= query.sort === 'status' ? 'selected' : '' %>>Статус</option>
+          <option value="topic" <%= query.sort === 'topic' ? 'selected' : '' %>>Тема</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Найти</button>
+      </form>
+      <a href="/admin/export/feedback.json" class="btn btn-secondary">Экспорт</a>
+    </div>
+    <div class="admin-panel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Контакт</th>
+              <th>Тема</th>
+              <th>Сообщение</th>
+              <th>Статус</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% feedback.forEach((item) => { %>
+              <tr>
+                <td><%= item.id %></td>
+                <td><%= item.name %><br><span class="muted"><%= item.email %></span></td>
+                <td><%= item.topic %></td>
+                <td><%= item.message %></td>
+                <td>
+                  <form method="post" action="/admin/feedback/<%= item.id %>/status" class="inline-form">
+                    <select name="status">
+                      <option value="new" <%= item.status === 'new' ? 'selected' : '' %>>new</option>
+                      <option value="processed" <%= item.status === 'processed' ? 'selected' : '' %>>processed</option>
+                      <option value="archived" <%= item.status === 'archived' ? 'selected' : '' %>>archived</option>
+                    </select>
+                    <button class="btn btn-secondary btn-compact" type="submit">Сохранить</button>
+                  </form>
+                </td>
+                <td class="table-actions">
+                  <form method="post" action="/admin/feedback/<%= item.id %>/delete">
+                    <button class="btn btn-danger btn-compact" type="submit">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <%- include("../../partials/pagination", { pagination }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

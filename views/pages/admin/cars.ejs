@@ -1,0 +1,67 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Автомобили",
+  adminDescription: "Список авто."
+}) %>
+
+<section class="admin-section">
+  <div class="container">
+    <div class="table-toolbar admin-panel">
+      <form method="get" class="toolbar-form">
+        <input type="search" name="search" value="<%= query.search || '' %>" placeholder="Поиск по таблице автомобилей">
+        <select name="sort">
+          <option value="newest">Сначала новые</option>
+          <option value="brand" <%= query.sort === 'brand' ? 'selected' : '' %>>Марка</option>
+          <option value="price_desc" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Цена ↓</option>
+          <option value="price_asc" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Цена ↑</option>
+          <option value="status" <%= query.sort === 'status' ? 'selected' : '' %>>Статус</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Найти</button>
+      </form>
+      <div class="toolbar-actions">
+        <a href="/admin/cars/new" class="btn btn-primary">Добавить запись</a>
+        <a href="/admin/export/cars.json" class="btn btn-secondary">Экспорт</a>
+      </div>
+    </div>
+
+    <div class="admin-panel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Модель</th>
+              <th>Цена</th>
+              <th>Рейтинг</th>
+              <th>Отзывы</th>
+              <th>Статус</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cars.forEach((car) => { %>
+              <tr>
+                <td><%= car.id %></td>
+                <td><%= car.brand %> <%= car.model %></td>
+                <td><%= helpers.formatCurrency(car.price) %></td>
+                <td><%= Number(car.avg_rating).toFixed(1) %></td>
+                <td><%= car.review_count %></td>
+                <td><span class="status-pill status-<%= car.status %>"><%= car.status %></span></td>
+                <td class="table-actions">
+                  <a href="/admin/cars/<%= car.id %>/edit" class="btn btn-secondary btn-compact">Изменить</a>
+                  <form method="post" action="/admin/cars/<%= car.id %>/delete">
+                    <button class="btn btn-danger btn-compact" type="submit">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <%- include("../../partials/pagination", { pagination }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

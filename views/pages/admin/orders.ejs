@@ -1,0 +1,69 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Заявки",
+  adminDescription: "Список обращений."
+}) %>
+
+<section class="admin-section">
+  <div class="container">
+    <div class="table-toolbar admin-panel">
+      <form method="get" class="toolbar-form">
+        <input type="search" name="search" value="<%= query.search || '' %>" placeholder="Поиск заявок">
+        <select name="sort">
+          <option value="newest">Сначала новые</option>
+          <option value="status" <%= query.sort === 'status' ? 'selected' : '' %>>Статус</option>
+          <option value="amount_desc" <%= query.sort === 'amount_desc' ? 'selected' : '' %>>Сумма ↓</option>
+          <option value="amount_asc" <%= query.sort === 'amount_asc' ? 'selected' : '' %>>Сумма ↑</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Найти</button>
+      </form>
+      <a href="/admin/export/orders.json" class="btn btn-secondary">Экспорт</a>
+    </div>
+    <div class="admin-panel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Клиент</th>
+              <th>Авто</th>
+              <th>Сумма</th>
+              <th>Статус</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.forEach((order) => { %>
+              <tr>
+                <td><%= order.id %></td>
+                <td><%= order.user_name %><br><span class="muted"><%= order.user_email %></span></td>
+                <td><%= order.brand %> <%= order.model %></td>
+                <td><%= helpers.formatCurrency(order.total_amount) %></td>
+                <td>
+                  <form method="post" action="/admin/orders/<%= order.id %>/status" class="inline-form">
+                    <select name="status">
+                      <option value="new" <%= order.status === 'new' ? 'selected' : '' %>>new</option>
+                      <option value="in_progress" <%= order.status === 'in_progress' ? 'selected' : '' %>>in_progress</option>
+                      <option value="done" <%= order.status === 'done' ? 'selected' : '' %>>done</option>
+                      <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>cancelled</option>
+                    </select>
+                    <button class="btn btn-secondary btn-compact" type="submit">Сохранить</button>
+                  </form>
+                </td>
+                <td class="table-actions">
+                  <form method="post" action="/admin/orders/<%= order.id %>/delete">
+                    <button class="btn btn-danger btn-compact" type="submit">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <%- include("../../partials/pagination", { pagination }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

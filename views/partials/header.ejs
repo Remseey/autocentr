@@ -1,0 +1,50 @@
+<div class="site-intro" id="siteIntro" aria-hidden="true">
+  <div class="site-intro__frame"></div>
+  <div class="site-intro__brand">PRIMECAR</div>
+  <div class="site-intro__line"></div>
+</div>
+
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a class="logo" href="/">
+        <span class="logo-text">PRIMECAR</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="/" class="nav-link <%= currentPath === '/' ? 'active' : '' %>">Главная</a>
+        <a href="/catalog" class="nav-link <%= currentPath.startsWith('/catalog') ? 'active' : '' %>">Каталог</a>
+        <a href="/services" class="nav-link <%= currentPath.startsWith('/services') ? 'active' : '' %>">Услуги</a>
+        <% if (currentUser) { %>
+          <a href="/account" class="nav-link <%= currentPath.startsWith('/account') ? 'active' : '' %>">Кабинет</a>
+        <% } %>
+        <% if (currentUser && currentUser.role === 'admin') { %>
+          <a href="/admin" class="nav-link <%= currentPath.startsWith('/admin') ? 'active' : '' %>">Админка</a>
+        <% } %>
+      </nav>
+
+      <div class="header-actions">
+        <form action="/search" method="get" class="header-search">
+          <input type="search" name="q" value="<%= query.search || query.q || '' %>" placeholder="Поиск по сайту">
+        </form>
+
+        <% if (currentUser) { %>
+          <form action="/logout" method="post">
+            <button type="submit" class="btn btn-secondary btn-compact">Выйти</button>
+          </form>
+        <% } else { %>
+          <a href="/login" class="btn btn-secondary btn-compact">Войти</a>
+        <% } %>
+
+        <button class="burger" id="burger" type="button" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="page-shell">
+  <%- include("flash") %>

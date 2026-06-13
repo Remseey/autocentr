@@ -1,0 +1,29 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Панель управления",
+  adminDescription: "Основные разделы панели."
+}) %>
+
+<section class="section">
+  <div class="container">
+    <div class="admin-stats">
+      <a class="admin-stat-card" href="/admin/users"><span>Пользователи</span><strong><%= helpers.formatNumber(stats.users) %></strong></a>
+      <a class="admin-stat-card" href="/admin/cars"><span>Авто</span><strong><%= helpers.formatNumber(stats.cars) %></strong></a>
+      <a class="admin-stat-card" href="/admin/services"><span>Услуги</span><strong><%= helpers.formatNumber(stats.services) %></strong></a>
+      <a class="admin-stat-card" href="/admin/orders"><span>Заявки</span><strong><%= helpers.formatNumber(stats.orders) %></strong></a>
+      <a class="admin-stat-card" href="/admin/feedback"><span>Отзывы</span><strong><%= helpers.formatNumber(stats.reviews) %></strong></a>
+    </div>
+
+    <div class="admin-quick-grid">
+      <a class="admin-quick-card" href="/admin/cars"><strong>Авто</strong><span>Каталог, карточки, статусы и отзывы.</span></a>
+      <a class="admin-quick-card" href="/admin/services"><strong>Услуги</strong><span>Пакеты, цены и тексты.</span></a>
+      <a class="admin-quick-card" href="/admin/users"><strong>Пользователи</strong><span>Аккаунты и роли.</span></a>
+      <a class="admin-quick-card" href="/admin/orders"><strong>Заявки</strong><span>Суммы и статусы.</span></a>
+      <a class="admin-quick-card" href="/admin/feedback"><strong>Сообщения</strong><span>Входящие обращения.</span></a>
+      <a class="admin-quick-card" href="/admin/export/cars.json"><strong>Экспорт</strong><span>Выгрузка данных.</span></a>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>

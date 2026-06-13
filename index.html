@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoElite - Эксперты в продаже люксовых автомобилей</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">AutoElite</span>
+                </div>
+                <nav class="nav" id="nav">
+                    <a href="index.html" class="nav-link active">Главная</a>
+                    <a href="catalog.html" class="nav-link">Каталог</a>
+                    <a href="services.html" class="nav-link">Услуги</a>
+                    <a href="#contacts" class="nav-link">Контакты</a>
+                </nav>
+                <button class="burger" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide active">
+                <img src="images/hero-mercedes.jpg" alt="Mercedes S-Class">
+                <div class="hero-content">
+                    <div class="container">
+                        <h1 class="hero-title">Мир элитных авто начинается здесь</h1>
+                        <p class="hero-text">Откройте для себя изысканную коллекцию роскошных машин класса люкс с гарантией безупречности</p>
+                        <a href="catalog.html" class="btn btn-primary">Открыть коллекцию</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="images/hero-bmw.jpg" alt="BMW 7 Series">
+                <div class="hero-content">
+                    <div class="container">
+                        <h1 class="hero-title">Продажа авто через экспертов рынка</h1>
+                        <p class="hero-text">Передайте заботу о реализации вашей машины настоящим профессионалам индустрии</p>
+                        <a href="services.html" class="btn btn-primary">Узнать условия</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide">
+                <img src="images/hero-audi.jpg" alt="Audi A8">
+                <div class="hero-content">
+                    <div class="container">
+                        <h1 class="hero-title">Персональный сервис мирового уровня</h1>
+                        <p class="hero-text">Комплексная поддержка на всех этапах: от выбора модели до регистрации в ГИБДД</p>
+                        <a href="#contacts" class="btn btn-primary">Записаться на консультацию</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="slider-btn slider-btn-prev" id="heroPrev">‹</button>
+        <button class="slider-btn slider-btn-next" id="heroNext">›</button>
+        <div class="slider-dots" id="heroDots"></div>
+    </section>
+
+    <section class="advantages">
+        <div class="container">
+            <h2 class="section-title">Наши конкурентные преимущества</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-number">01</div>
+                    <h3 class="advantage-title">Детальная экспертиза машин</h3>
+                    <p class="advantage-text">Все авто проходят комплексную многоступенчатую диагностику состояния и юридический аудит перед размещением</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-number">02</div>
+                    <h3 class="advantage-title">Честность на первом месте</h3>
+                    <p class="advantage-text">Справедливая оценка стоимости, отсутствие дополнительных сборов. Открытая документация по каждому автомобилю</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-number">03</div>
+                    <h3 class="advantage-title">Экспресс-регистрация</h3>
+                    <p class="advantage-text">Полный комплекс услуг по подготовке бумаг, заключению страховки и регистрации транспорта в госорганах</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-number">04</div>
+                    <h3 class="advantage-title">Защита вложений</h3>
+                    <p class="advantage-text">Расширенная гарантия на каждую реализованную машину и постпродажное обслуживание клиентов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Специальные предложения сезона</h2>
+                <a href="catalog.html" class="link-more">Вся коллекция →</a>
+            </div>
+            <div class="cars-grid">
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="images/mercedes-s-class.jpg" alt="Mercedes-Benz S-Class">
+                        <span class="car-badge">Доступен</span>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Mercedes-Benz S-Class</h3>
+                        <div class="car-specs">
+                            <span>2023 год</span>
+                            <span>15 000 км</span>
+                            <span>3.0 AMG</span>
+                        </div>
+                        <div class="car-footer">
+                            <p class="car-price">12 500 000 ₽</p>
+                            <a href="catalog.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="images/bmw-7-series.jpg" alt="BMW 7 Series">
+                        <span class="car-badge">Свежее поступление</span>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">BMW 7 Series</h3>
+                        <div class="car-specs">
+                            <span>2024 год</span>
+                            <span>5 000 км</span>
+                            <span>4.4 V8</span>
+                        </div>
+                        <div class="car-footer">
+                            <p class="car-price">14 200 000 ₽</p>
+                            <a href="catalog.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-card">
+                    <div class="car-image">
+                        <img src="images/audi-a8.jpg" alt="Audi A8">
+                        <span class="car-badge">Хит продаж</span>
+                    </div>
+                    <div class="car-info">
+                        <h3 class="car-title">Audi A8 L</h3>
+                        <div class="car-specs">
+                            <span>2023 год</span>
+                            <span>22 000 км</span>
+                            <span>3.0 TFSI</span>
+                        </div>
+                        <div class="car-footer">
+                            <p class="car-price">9 800 000 ₽</p>
+                            <a href="catalog.html" class="btn btn-secondary">Узнать больше</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Планируете реализовать свой автомобиль?</h2>
+                <p class="cta-text">Воспользуйтесь нашими услугами продажи через комиссию на максимально привлекательных для вас условиях</p>
+                <a href="services.html" class="btn btn-light">Подробная информация</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <span class="logo-text">AutoElite</span>
+                    </div>
+                    <p class="footer-text">Ведущий дилер люксовых транспортных средств на российском рынке с 2015 года</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Telegram">TG</a>
+                        <a href="#" class="social-link" aria-label="WhatsApp">WA</a>
+                        <a href="#" class="social-link" aria-label="VK">VK</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Навигация</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Контакты</h4>
+                    <ul class="footer-contacts">
+                        <li>+7 (495) 123-45-67</li>
+                        <li>info@autoelite.ru</li>
+                        <li>Москва, ул. Примерная, 10</li>
+                        <li>Пн-Вс: 09:00 - 21:00</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-title">Рассылка о новинках</h4>
+                    <p class="footer-text">Получайте информацию о свежих поступлениях первыми</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit" class="btn btn-primary">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AutoElite. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

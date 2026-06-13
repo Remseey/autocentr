@@ -1,0 +1,115 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<section class="page-hero detail-hero">
+  <div class="container detail-grid">
+    <div>
+      <p class="eyebrow">Карточка автомобиля</p>
+      <h1 class="page-title"><%= car.brand %> <%= car.model %></h1>
+      <p class="page-subtitle"><%= car.description %></p>
+      <div class="detail-specs">
+        <span><strong>Год:</strong> <%= car.year %></span>
+        <span><strong>Пробег:</strong> <%= helpers.formatNumber(car.mileage) %> км</span>
+        <span><strong>Двигатель:</strong> <%= car.engine %></span>
+        <span><strong>Кузов:</strong> <%= car.body_type %></span>
+        <span><strong>КПП:</strong> <%= car.transmission %></span>
+        <span><strong>Рейтинг:</strong> ★ <%= Number(car.avg_rating).toFixed(1) %></span>
+        <span><strong>Отзывы:</strong> <%= car.review_count %></span>
+      </div>
+    </div>
+    <div class="detail-card">
+      <img src="<%= car.image_url %>" alt="<%= car.brand %> <%= car.model %>">
+      <div class="detail-card__body">
+        <div class="price-block"><%= helpers.formatCurrency(car.price) %></div>
+        <p class="muted">Стоимость рассчитывается с учётом выбранного пакета сопровождения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container two-column">
+    <div class="panel reveal">
+      <div class="section-header compact">
+        <div>
+          <p class="eyebrow">Заявка</p>
+          <h2 class="section-title">Расчёт стоимости и оформление</h2>
+        </div>
+      </div>
+
+      <% if (currentUser) { %>
+        <form method="post" action="/catalog/<%= car.slug %>/orders" class="stack-form">
+          <div class="field">
+            <label for="contactPhone">Телефон</label>
+            <input id="contactPhone" name="contactPhone" value="<%= currentUser.phone || '' %>" required>
+          </div>
+          <div class="field">
+            <label for="servicePackage">Пакет сопровождения</label>
+            <select id="servicePackage" name="servicePackage" data-base-price="<%= car.price %>" data-price-calculator>
+              <% servicePackages.forEach((pkg) => { %>
+                <option value="<%= pkg.key %>" data-extra-price="<%= pkg.price %>"><%= pkg.title %> (+<%= helpers.formatCurrency(pkg.price) %>)</option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="comment">Комментарий</label>
+            <textarea id="comment" name="comment" rows="4" placeholder="Например, нужна доставка или осмотр в конкретный день"></textarea>
+          </div>
+          <div class="calculator-result">
+            Итоговая стоимость: <strong data-total-output><%= helpers.formatCurrency(car.price) %></strong>
+          </div>
+          <button type="submit" class="btn btn-primary">Создать заявку</button>
+        </form>
+      <% } else { %>
+        <p class="muted">Чтобы оставить заявку, нужен аккаунт.</p>
+        <a href="/login" class="btn btn-primary">Войти</a>
+      <% } %>
+    </div>
+
+    <div class="panel reveal">
+      <div class="section-header compact">
+        <div>
+          <p class="eyebrow">Отзывы</p>
+          <h2 class="section-title">Комментарии и рейтинг</h2>
+        </div>
+      </div>
+
+      <% if (currentUser) { %>
+        <form method="post" action="/catalog/<%= car.slug %>/reviews" class="stack-form">
+          <div class="field">
+            <label for="rating">Оценка</label>
+            <select id="rating" name="rating" required>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="reviewComment">Комментарий</label>
+            <textarea id="reviewComment" name="comment" rows="4" required placeholder="Оцените состояние, сервис и сопровождение"></textarea>
+          </div>
+          <button type="submit" class="btn btn-secondary">Добавить отзыв</button>
+        </form>
+      <% } %>
+
+      <div class="review-list">
+        <% reviews.forEach((review) => { %>
+          <article class="review-card">
+            <div class="review-card__meta">
+              <strong><%= review.name %></strong>
+              <span>★ <%= review.rating %>/5</span>
+            </div>
+            <p><%= review.comment %></p>
+          </article>
+        <% }) %>
+        <% if (!reviews.length) { %>
+          <p class="muted">Пока отзывов нет.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

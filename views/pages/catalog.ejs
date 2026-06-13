@@ -1,0 +1,97 @@
+<%- include("../partials/head") %>
+<%- include("../partials/header") %>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Каталог</p>
+    <h1 class="page-title">Коллекция премиальных автомобилей в наличии</h1>
+    <p class="page-subtitle">В каталоге доступно <strong><%= helpers.formatNumber(totalCount) %></strong> автомобилей с подробными характеристиками и историей предложений.</p>
+  </div>
+</section>
+
+<section class="filters">
+  <div class="container">
+    <form method="get" class="filters-grid panel">
+      <div class="field">
+        <label for="search">Поиск</label>
+        <input id="search" type="search" name="search" value="<%= query.search || '' %>" placeholder="Mercedes, Panamera, hybrid...">
+      </div>
+      <div class="field">
+        <label for="brand">Марка</label>
+        <select id="brand" name="brand">
+          <option value="">Все</option>
+          <% filterOptions.brands.forEach((brand) => { %>
+            <option value="<%= brand %>" <%= query.brand === brand ? 'selected' : '' %>><%= brand %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bodyType">Тип кузова</label>
+        <select id="bodyType" name="bodyType">
+          <option value="">Все</option>
+          <% filterOptions.bodyTypes.forEach((bodyType) => { %>
+            <option value="<%= bodyType %>" <%= query.bodyType === bodyType ? 'selected' : '' %>><%= bodyType %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="transmission">Коробка</label>
+        <select id="transmission" name="transmission">
+          <option value="">Все</option>
+          <% filterOptions.transmissions.forEach((transmission) => { %>
+            <option value="<%= transmission %>" <%= query.transmission === transmission ? 'selected' : '' %>><%= transmission %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="sort">Сортировка</label>
+        <select id="sort" name="sort">
+          <option value="newest" <%= query.sort === 'newest' ? 'selected' : '' %>>Сначала новые</option>
+          <option value="price_asc" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Цена по возрастанию</option>
+          <option value="price_desc" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Цена по убыванию</option>
+          <option value="rating_desc" <%= query.sort === 'rating_desc' ? 'selected' : '' %>>По рейтингу</option>
+          <option value="mileage_asc" <%= query.sort === 'mileage_asc' ? 'selected' : '' %>>По пробегу</option>
+          <option value="year_desc" <%= query.sort === 'year_desc' ? 'selected' : '' %>>По году</option>
+          <option value="name_asc" <%= query.sort === 'name_asc' ? 'selected' : '' %>>По названию</option>
+        </select>
+      </div>
+      <div class="actions-row">
+        <button type="submit" class="btn btn-primary">Применить</button>
+        <a href="/catalog" class="btn btn-secondary">Сбросить</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cards-grid">
+      <% cars.forEach((car) => { %>
+        <article class="car-card reveal">
+          <div class="car-image">
+            <img src="<%= car.image_url %>" alt="<%= car.brand %> <%= car.model %>">
+            <span class="car-badge"><%= car.status === 'active' ? 'Доступен' : car.status %></span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-title"><%= car.brand %> <%= car.model %></h3>
+            <div class="car-specs">
+              <span><%= car.year %> год</span>
+              <span><%= helpers.formatNumber(car.mileage) %> км</span>
+              <span><%= car.transmission %></span>
+            </div>
+            <p class="car-description"><%= car.description %></p>
+            <div class="meta-row">
+              <div class="rating-chip">★ <%= Number(car.avg_rating).toFixed(1) %> · <%= car.review_count %> отзывов</div>
+              <div class="price-block"><%= helpers.formatCurrency(car.price) %></div>
+            </div>
+            <a href="/catalog/<%= car.slug %>" class="btn btn-primary">Открыть карточку</a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <%- include("../partials/pagination", { pagination }) %>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

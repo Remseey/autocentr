@@ -1,0 +1,61 @@
+<%- include("../../partials/head") %>
+<%- include("../../partials/header") %>
+<%- include("../../partials/admin-nav", {
+  adminTitle: "Услуги",
+  adminDescription: "Список услуг."
+}) %>
+
+<section class="admin-section">
+  <div class="container">
+    <div class="table-toolbar admin-panel">
+      <form method="get" class="toolbar-form">
+        <input type="search" name="search" value="<%= query.search || '' %>" placeholder="Поиск по таблице услуг">
+        <select name="sort">
+          <option value="sort_order">Порядок</option>
+          <option value="title" <%= query.sort === 'title' ? 'selected' : '' %>>Название</option>
+          <option value="price_desc" <%= query.sort === 'price_desc' ? 'selected' : '' %>>Цена ↓</option>
+          <option value="price_asc" <%= query.sort === 'price_asc' ? 'selected' : '' %>>Цена ↑</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Найти</button>
+      </form>
+      <div class="toolbar-actions">
+        <a href="/admin/services/new" class="btn btn-primary">Добавить запись</a>
+        <a href="/admin/export/services.json" class="btn btn-secondary">Экспорт</a>
+      </div>
+    </div>
+    <div class="admin-panel">
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Название</th>
+              <th>Цена</th>
+              <th>Порядок</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% services.forEach((service) => { %>
+              <tr>
+                <td><%= service.id %></td>
+                <td><%= service.title %></td>
+                <td><%= helpers.formatCurrency(service.base_price) %></td>
+                <td><%= service.sort_order %></td>
+                <td class="table-actions">
+                  <a href="/admin/services/<%= service.id %>/edit" class="btn btn-secondary btn-compact">Изменить</a>
+                  <form method="post" action="/admin/services/<%= service.id %>/delete">
+                    <button class="btn btn-danger btn-compact" type="submit">Удалить</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <%- include("../../partials/pagination", { pagination }) %>
+    </div>
+  </div>
+</section>
+
+<%- include("../../partials/footer") %>
